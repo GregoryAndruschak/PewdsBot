@@ -167,6 +167,6 @@ ENV/
 .ropeproject
 
 #token
-Bot/token.py
+Bot/tkn.py
 
 .idea/

@@ -1,8 +1,9 @@
 import Bot.config as config
-import telebot
 import Bot.hparser as hp
+import Bot.tkn as token
+import telebot
 
-bot = telebot.TeleBot(config.token)
+bot = telebot.TeleBot(token.token)
 
 users = {}
 
