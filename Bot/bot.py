@@ -17,6 +17,12 @@ class User(object):
         self.last_name = last_name
         self.username = username
         User.num_of_users += 1
+        u = open('../users.txt', 'a')
+        u.write(self.to_string())
+        u.close()
+
+    def to_string(self):
+        return config.user_info.format(self.first_name, self.last_name, self.username, self.id_)
 
 
 @bot.message_handler(commands=['start'])
@@ -26,17 +32,17 @@ def start_message(msg):
         users.update({msg.chat.id: User(msg.chat.id, msg.chat.first_name, msg.chat.username, msg.chat.last_name)})
         user = users.get(msg.chat.id)
 
-        bot.send_message(user.id_, config.user_info.format(user.first_name, user.last_name, user.username, user.id_))
+        # bot.send_message(user.id_, config.user_info.format(user.first_name, user.last_name, user.username, user.id_))
 
-        # bot.send_message(user_id, config.start.format(user_name))
-        # bot.send_message(user_id, config.help)
+        bot.send_message(user.id_, config.start.format(user.first_name))
+        bot.send_message(user.id_, config.help_)
     else:
         user = users.get(msg.chat.id)
 
-        bot.send_message(user.id_, config.user_info.format(user.first_name, user.last_name, user.username, user.id_))
+        # bot.send_message(user.id_, config.user_info.format(user.first_name, user.last_name, user.username, user.id_))
         # bot.send_photo(user_id, config.triforse)
-        # bot.send_message(user_id, config.start.format(user_id))
-        # bot.send_message(user_id, config.help)"""
+        bot.send_message(user.id_, config.start.format(user.first_name))
+        bot.send_message(user.id_, config.help_)
 
 
 @bot.message_handler(commands=['help'])
@@ -61,7 +67,6 @@ def new_video(msg):
     video = hp.get_new()
     result = config.new_video.format(video.title, video.link)
     bot.send_message(msg.chat.id, result)
-
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)

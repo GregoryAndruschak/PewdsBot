@@ -170,3 +170,5 @@ ENV/
 Bot/tkn.py
 
 .idea/
+
+users.txt
